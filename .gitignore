@@ -1,0 +1,27 @@
+node_modules/
+.next/
+out/
+build/
+
+# Secrets — operator credentials NEVER belong in the repo (AP-41).
+.env
+.env.local
+.env.*.local
+scripts/.skycloak-api-key
+
+# Local TideCloak state (adapter export + H2 volume)
+data/tidecloak.json
+data/keycloakdb*
+data/tidecloak.skycloak.json
+
+# App data (customer records, ciphertext and shared fields)
+data/store/
+data/vault/
+.tide-pack/
+
+# Local-only files
+TIDE-SUPPORT-REQUEST.md
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+data/cluster-create.json
