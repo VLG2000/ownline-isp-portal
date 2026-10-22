@@ -132,7 +132,22 @@ export function Shell({ children }: { children: React.ReactNode }) {
             <strong>Demo mode</strong> — Tide sign-in is skipped; each person&apos;s data is encrypted with their own key
             kept in this browser, not the Tide network.
           </span>
-          <label style={{ marginLeft: "auto", whiteSpace: "nowrap" }}>
+          <button
+            onClick={async () => {
+              if (!confirm("Reset all demo data? Every demo user's saved details, usage and tickets are deleted.")) return;
+              await fetch("/api/demo/reset", { method: "POST" });
+              (Object.keys(PERSONAS) as PersonaId[]).forEach((p) => {
+                try {
+                  localStorage.removeItem(`isp-portal-demo-key-${p}`);
+                } catch {}
+              });
+              window.location.assign("/");
+            }}
+            style={{ ...btnSmall, background: "transparent", color: "var(--amber)", border: "1px solid #4a3a14", marginLeft: "auto" }}
+          >
+            Reset demo data
+          </button>
+          <label style={{ whiteSpace: "nowrap" }}>
             Viewing as{" "}
             <select
               value={getPersona()}
